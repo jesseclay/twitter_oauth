@@ -9,7 +9,6 @@ end
 
 get '/sign_out' do
   session.clear
-  sign_out
   redirect '/'
 end
 
