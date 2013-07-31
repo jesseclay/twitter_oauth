@@ -9,10 +9,11 @@
   %>
   <% if @access_token %>
     <div>
-      <p>
-        <strong>token:</strong> <%= @access_token.token %><br>
-        <strong>secret:</strong> <%= @access_token.secret %><br>
-      </p>
+        <form  id="tweet" action="/tweet" method="post">
+          <input type="text" name="tweet" required>
+          <input type="submit" id="tweet_text" value="tweet" placeholder="tweet here!">
+        </form>
+        <div class="tweet_result" style="display: none;"></div>
       <p>
         <button><a href="/sign_out">Sign Out</a></button>
       </p>
