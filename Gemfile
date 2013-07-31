@@ -24,5 +24,5 @@ gem 'debugger'
 
 group :test do
   gem 'faker'
-  # gem 'rspec'
+  gem 'rspec'
 end
