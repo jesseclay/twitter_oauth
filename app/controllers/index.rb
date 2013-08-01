@@ -28,8 +28,12 @@ end
 
 post '/tweet' do
   user = User.find(session[:id])
-  p params
-  user.tweet(params[:tweet])
+  if params[:delay]
+    p "delayed tweet"
+    user.tweet(params[:tweet],params[:delay])
+  else
+    user.tweet(params[:tweet],0)
+  end
 end 
 
 get '/status/:job_id' do

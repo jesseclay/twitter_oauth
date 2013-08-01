@@ -1,7 +1,7 @@
 class TweetWorker
   include Sidekiq::Worker
 
-  def perform(tweet_id)
+  def perform(tweet_id, delay)
     p "IN TWEETWORKER"
     tweet = Tweet.find(tweet_id)
     p "TWEET: #{tweet}"
@@ -19,6 +19,9 @@ class TweetWorker
 
     p "TWITTER_CLIENT: #{client.inspect}"
     p tweet.status
+    p "right before delay!"
+    sleep(delay.to_i * 60)
+    p "right after delay!"
     client.update(tweet.status)
 
 

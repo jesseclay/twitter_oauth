@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  var intervalId;
+
   $('#tweet').on('submit', function(e) {
     e.preventDefault();
     $.ajax ({
@@ -7,8 +9,9 @@ $(document).ready(function() {
       data: $(this).serialize()
     }).done(function(msg) {
       $('.tweet_result').text("Tweet Successful!");
-      $('.job_ids').append("<br><a id="+msg+" href='/status/"+msg+"'>"+msg+"</a>");
-      $('#tweet').children().first().val('');
+      $('.job_ids').append("<br><a id="+msg+" href='/status/"+msg+"'>"+msg+"</a>");     
+      // $('#tweet').children().first().val('');
+      $('.tweetStatus').append("<div id='status_"+msg+"'> Job in process!</div>");
       watchJob(msg);
     }).fail(function(msg){
       $('.tweet_result').text("Uh-oh, something went wrong :/");
@@ -20,28 +23,26 @@ $(document).ready(function() {
 });
 
 function watchJob(job_id) {
-  console.log("in watchJob");
-  var jobInProcess = true;
-  while (jobInProcess) {
-    setTimeout(function() {
+    var count = 1;
+    intervalId = setInterval(function() {
       console.log("in timeout");
-      jobInProcess = jobInProcess(job_id);
+      checkJob(job_id, count);
+      count++;
     }, 5000);
-  }
 }
 
-function jobInProcess(job_id) {
+function checkJob(job_id, count) {
   console.log("in jobInProcess");
     $.ajax ({
       url: '/status/' + job_id,
-      method: get
+      method: 'get'
     }).done(function(msg) {
       console.log(msg);
       if (msg) {
-        console.log("job complete!");
-        return false;
+        window.clearInterval(intervalId)
+        $('.tweetStatus').text("Job complete! Pinged a total of "+count+" time(s).");
       } else {
-        return true;
+        $('.tweetStatus').text("In Process. Pinged "+count+" times so far.");
       }
     });
 }

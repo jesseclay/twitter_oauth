@@ -11,10 +11,12 @@
     <div>
         <form  id="tweet" action="/tweet" method="post">
           <input type="text" name="tweet" required>
+          <input type="text" name="delay" placeholder="delay in minutes?">
           <input type="submit" id="tweet_text" value="tweet" placeholder="tweet here!">
         </form>
         <div class="tweet_result" style="display: none;"></div>
         <div class="job_ids"></div>
+        <div class="tweetStatus"></div>
       <p>
         <button><a href="/sign_out">Sign Out</a></button>
       </p>
