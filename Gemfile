@@ -22,6 +22,12 @@ gem 'twitter'
 gem 'awesome_print'
 gem 'debugger'
 
+gem 'sidekiq'
+
+gem 'redis'
+
+gem "slim"
+
 group :test do
   gem 'faker'
   gem 'rspec'

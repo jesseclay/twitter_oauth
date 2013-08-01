@@ -14,8 +14,4 @@ helpers do
     User.find(session[:id])
   end
 
-  # def sign_out
-  #   @current_user = nil
-  # end
-
 end
