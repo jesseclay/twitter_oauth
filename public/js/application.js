@@ -25,21 +25,19 @@ $(document).ready(function() {
 function watchJob(job_id) {
     var count = 1;
     intervalId = setInterval(function() {
-      console.log("in timeout");
       checkJob(job_id, count);
       count++;
     }, 5000);
 }
 
 function checkJob(job_id, count) {
-  console.log("in jobInProcess");
     $.ajax ({
       url: '/status/' + job_id,
       method: 'get'
     }).done(function(msg) {
-      console.log(msg);
-      if (msg) {
-        window.clearInterval(intervalId)
+      var result = new String(msg);
+      if (result == "true") {
+        window.clearInterval(intervalId);
         $('.tweetStatus').text("Job complete! Pinged a total of "+count+" time(s).");
       } else {
         $('.tweetStatus').text("In Process. Pinged "+count+" times so far.");
