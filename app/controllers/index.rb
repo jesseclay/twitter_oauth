@@ -21,12 +21,15 @@ get '/auth' do
   
   user = User.find_or_create_by_username_and_oauth_token_and_oauth_secret(username: @access_token.params[:screen_name], oauth_token: @access_token.token, oauth_secret: @access_token.secret)
   session[:id] = user.id
-  # set_current_user(@access_token.token, @access_token.secret)
+  p "***********************************************"
+  p user.id
+  p session[:id]
   erb :index
   
 end
 
 post '/tweet' do
+  p session
   user = User.find(session[:id])
   if params[:delay]
     p "delayed tweet"
