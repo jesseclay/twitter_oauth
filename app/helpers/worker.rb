@@ -1,4 +1,5 @@
 def job_is_complete(jid)
+  p "in helper METHOD ***************************************"
   waiting = Sidekiq::Queue.new
   working = Sidekiq::Workers.new
   pending = Sidekiq::ScheduledSet.new
